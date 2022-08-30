@@ -1,0 +1,6 @@
+#!/bin/bash
+touch newfile
+echo $$
+echo $0
+echo $n
+echo $#
