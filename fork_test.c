@@ -21,14 +21,19 @@ int main(void)
 		return (1);
 	}
 	if (childpid == 0)
-	{
+	{	
+		sleep(5);
 		printf("na me be the pikin\n");
 	}
 	else
 	{
 		parentpid = getpid();
-		sleep(40);
 		printf("pid of parent process after fork is: %u\n", parentpid);
 	}
 	return (0);
 }
+
+/**
+* the child process returns a pid of 0 upon success
+* because its actual pid is returned to the main process calling it (i.e its Parent)
+*/
