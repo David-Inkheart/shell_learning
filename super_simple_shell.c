@@ -6,16 +6,18 @@
 #include <string.h>
 /**
  * main - a program that imitates a very simple shell
- *
- *
+ * @argv: argument vector for main "argv[0] = file pathname"
+ * @ac: argument count
  * Return: always O on success.
  */
 int main(int ac __attribute__((unused)), char **argv)
 {
 	char *buf;
 	size_t n;
-	size_t output, reload_shell;
+	int output, reload_shell;
 	char *token;
+	pid_t my_pid;
+	char *args[1024];
 
 	printf("Myshell :) ");
 
@@ -23,7 +25,7 @@ int main(int ac __attribute__((unused)), char **argv)
 
 	getline(&buf, &n, stdin);
 
-	pid_t my_pid = fork();
+	my_pid = fork();
 
 	if (my_pid == -1)
 	{
@@ -34,7 +36,7 @@ int main(int ac __attribute__((unused)), char **argv)
 	{
 		token = strtok(buf, " ");
 
-		char *args[] = {token, NULL};
+		args[1024] = "token, NULL";
 
 		args[0] = strdup(token);
 
@@ -49,7 +51,9 @@ int main(int ac __attribute__((unused)), char **argv)
 		reload_shell = execve(argv[0], argv, NULL);
 
 		if (reload_shell == -1)
+		{
 			 perror(":( Reload Shell Error");
+		}
 	}
 	return (0);
 }
